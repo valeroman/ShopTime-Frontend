@@ -75,6 +75,14 @@ const Navbar = ({ isAuthenticated, logout }) => {
                                 Home
                             </NavLink>
                         </li>
+                        <li className='nav-item'>
+                            <NavLink 
+                                className='nav-link' 
+                                to='/shop'
+                            >
+                                Shop
+                            </NavLink>
+                        </li>
                         {
                             isAuthenticated ? authLinks : guestLinks
                         }

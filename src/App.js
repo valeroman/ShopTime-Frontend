@@ -9,6 +9,7 @@ import Home from './containers/Home';
 import Login from './containers/Login';
 import ResetPassword from './containers/ResetPassword';
 import ResetPasswordConfirm from './containers/ResetPasswordConfirm';
+import Shop from './containers/Shop';
 import Signup from './containers/Signup';
 import Layout from './hocs/Layout';
 import store from './store';
@@ -21,6 +22,7 @@ const App = () => {
             <Router>
                 <Layout>
                     <Route exact path='/' component={ Home } />
+                    <Route exact path='/shop' component={ Shop } />
                     <Route exact path='/dashboard' component={ Dashboard } />
                     <Route exact path='/login' component={ Login } />
                     <Route exact path='/signup' component={ Signup } />
