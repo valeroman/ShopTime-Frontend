@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Activate from './containers/Activate';
 import Cart from './containers/Cart';
+import Checkout from './containers/Checkout';
 import Dashboard from './containers/Dashboard';
 import Facebook from './containers/Facebook';
 import Google from './containers/Google';
@@ -16,6 +17,7 @@ import Search from './containers/Search';
 import Shop from './containers/Shop';
 import Signup from './containers/Signup';
 import Layout from './hocs/Layout';
+import PrivateRoute from './hocs/PrivateRoute';
 import store from './store';
 
 
@@ -28,6 +30,7 @@ const App = () => {
                     <Route exact path='/' component={ Home } />
                     <Route exact path='/shop' component={ Shop } />
                     <Route exact path='/cart' component={ Cart } />
+                    <PrivateRoute exact path='/checkout' component={ Checkout } />
                     <Route exact path='/cart-or-continue-shopping' component={ GoToCart } />
                     <Route exact path='/search' component={ Search } />
                     <Route exact path='/product/:id' component={ ProductDetail } />

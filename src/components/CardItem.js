@@ -33,7 +33,7 @@ const CardItem = ({
     const onSubmit = e => {
         e.preventDefault();
 
-        console.log('submit_item', item);
+        // console.log('submit_item', item);
 
         const fetchData = async () => {
             try {
