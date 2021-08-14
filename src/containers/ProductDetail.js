@@ -1,5 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import {
+    add_item,
+    get_items,
+    get_item_total,
+    get_total
+} from '../actions/cart';
 import { get_product, get_related_products } from '../actions/products';
 import Card from '../components/Card';
 import ProductDetailCard from '../components/ProductDetailCard';
@@ -10,8 +17,14 @@ const ProductDetail = ({
     product,
     get_product,
     related_products,
-    get_related_products 
+    get_related_products,
+    add_item,
+    get_items,
+    get_item_total,
+    get_total 
 }) => {
+
+    const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
 
@@ -35,16 +48,30 @@ const ProductDetail = ({
                 <div key={ index } className='col-4'>
                     <Card 
                         product={ product }
+                        add_item={ add_item }
+                        get_items={ get_items }
+                        get_total={ get_total }
+                        get_item_total={ get_item_total }
+                        setRedirect={ setRedirect }
                     />
                 </div>
             ))
         }
     }
 
+    if (redirect) {
+        return <Redirect to='/cart-or-continue-shopping' />;
+    }
+
     return (
         <div className='container mt-5'>
             <ProductDetailCard 
                 product={ product }
+                add_item={ add_item }
+                get_items={ get_items }
+                get_total={ get_total }
+                get_item_total={ get_item_total }
+                setRedirect={ setRedirect }
             />
             <hr />
             
@@ -65,5 +92,9 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
     get_product,
-    get_related_products
+    get_related_products,
+    add_item,
+    get_items,
+    get_item_total,
+    get_total
 })(ProductDetail);

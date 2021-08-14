@@ -4,7 +4,12 @@ import Card from './Card';
 
 const LandingPage = ({
     products_arrival,
-    products_sold
+    products_sold,
+    add_item,
+    get_items,
+    get_total,
+    get_item_total,
+    setRedirect
 }) => {
     return (
         <div className='container'>
@@ -27,6 +32,11 @@ const LandingPage = ({
                             <div key={index} className='col-4'>
                                 <Card 
                                     product={ product }
+                                    add_item={ add_item }
+                                    get_items={ get_items }
+                                    get_total={ get_total }
+                                    get_item_total={ get_item_total }
+                                    setRedirect={ setRedirect }
                                 />
                             </div>
                         ))
@@ -45,6 +55,11 @@ const LandingPage = ({
                             <div key={index} className='col-4'>
                                 <Card 
                                     product={ product }
+                                    add_item={ add_item }
+                                    get_items={ get_items }
+                                    get_total={ get_total }
+                                    get_item_total={ get_item_total }
+                                    setRedirect={ setRedirect }
                                 />
                             </div>
                         ))

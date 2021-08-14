@@ -1,7 +1,25 @@
 import moment from 'moment';
 import React from 'react';
 
-const ProductDetailCard = ({ product }) => {
+const ProductDetailCard = ({ 
+    product,
+    add_item,
+    get_items,
+    get_total,
+    get_item_total,
+    setRedirect
+ }) => {
+
+    const addToCart = async () => {
+        if (product && product !== null && product !== undefined && product.quantity > 0) {
+            await add_item(product);
+            await get_items();
+            await get_total();
+            await get_item_total();
+            setRedirect(true);
+        }
+    };
+
     return (
         <div className='row pt-5'>
             <div className='col-3'>
@@ -63,6 +81,14 @@ const ProductDetailCard = ({ product }) => {
                             )
                         }
                     </p>
+
+                    <button 
+                        onClick={ addToCart } 
+                        className='btn btn-warning mb-2'
+                    >
+                        Add to Cart
+                    </button>
+
                     <p className='card-text text-muted'>
                         Added {
                             product &&
@@ -75,7 +101,7 @@ const ProductDetailCard = ({ product }) => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ProductDetailCard
+export default ProductDetailCard;

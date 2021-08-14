@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import {
+    add_item,
+    get_items,
+    get_item_total,
+    get_total
+} from '../actions/cart';
 import { get_categories } from '../actions/categories';
 import { get_filtered_products, get_products } from '../actions/products';
 import Card from '../components/Card';
@@ -12,8 +19,14 @@ const Shop = ({
     products,
     get_products,
     filtered_products,
-    get_filtered_products
+    get_filtered_products,
+    add_item,
+    get_items, 
+    get_item_total, 
+    get_total
 }) => {
+
+    const [redirect, setRedirect] = useState(false);
 
     const [filtered, setFiltered] = useState(false);
 
@@ -61,6 +74,11 @@ const Shop = ({
                     <div key={ index } className='col-4'>
                         <Card 
                             product={ product }
+                            add_item={ add_item }
+                            get_items={ get_items }
+                            get_total={ get_total }
+                            get_item_total={ get_item_total }
+                            setRedirect={ setRedirect }
                         />
                     </div>
                 );
@@ -76,6 +94,11 @@ const Shop = ({
                     <div key={ index } className='col-4'>
                         <Card 
                             product={ product }
+                            add_item={ add_item }
+                            get_items={ get_items }
+                            get_total={ get_total }
+                            get_item_total={ get_item_total }
+                            setRedirect={ setRedirect }
                         />
                     </div>
                 );
@@ -95,6 +118,9 @@ const Shop = ({
         return results;
     };
 
+    if (redirect) {
+        return <Redirect to='/cart-or-continue-shopping' />;
+    }
 
     return (
         <div className='container'>
@@ -132,5 +158,9 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
     get_categories,
     get_products,
-    get_filtered_products
+    get_filtered_products,
+    add_item,
+    get_items, 
+    get_item_total, 
+    get_total
 })(Shop);

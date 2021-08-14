@@ -2,7 +2,24 @@ import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Card = ({ product }) => {
+const Card = ({ 
+    product,
+    add_item,
+    get_items,
+    get_total,
+    get_item_total,
+    setRedirect 
+}) => {
+
+    const addToCart = async () => {
+        if (product && product !== null && product !== undefined && product.quantity > 0) {
+            await add_item(product);
+            await get_items();
+            await get_total();
+            await get_item_total();
+            setRedirect(true);
+        }
+    };
 
     return (
         <div className='card mb-5'>
@@ -48,9 +65,15 @@ const Card = ({ product }) => {
                         View Product
                     </button>
                 </Link>
+                <button 
+                    onClick={ addToCart } 
+                    className='btn btn-outline-warning mt-2 mb-2'
+                >
+                    Add to Cart
+                </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Card;

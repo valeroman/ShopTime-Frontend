@@ -2,9 +2,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Activate from './containers/Activate';
+import Cart from './containers/Cart';
 import Dashboard from './containers/Dashboard';
 import Facebook from './containers/Facebook';
 import Google from './containers/Google';
+import GoToCart from './containers/GoToCart';
 import Home from './containers/Home';
 import Login from './containers/Login';
 import ProductDetail from './containers/ProductDetail';
@@ -25,6 +27,8 @@ const App = () => {
                 <Layout>
                     <Route exact path='/' component={ Home } />
                     <Route exact path='/shop' component={ Shop } />
+                    <Route exact path='/cart' component={ Cart } />
+                    <Route exact path='/cart-or-continue-shopping' component={ GoToCart } />
                     <Route exact path='/search' component={ Search } />
                     <Route exact path='/product/:id' component={ ProductDetail } />
                     <Route exact path='/dashboard' component={ Dashboard } />
