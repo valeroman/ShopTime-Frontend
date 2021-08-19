@@ -3,6 +3,7 @@ import alert from './alert';
 import auth from './auth';
 import cart from './cart';
 import categories from './categories';
+import coupons from './coupons';
 import orders from './orders';
 import payment from './payment';
 import products from './products';
@@ -16,5 +17,6 @@ export default combineReducers({
     cart,
     shipping,
     payment,
-    orders
+    orders,
+    coupons
 });
