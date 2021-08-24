@@ -7,7 +7,12 @@ const ProductDetailCard = ({
     get_items,
     get_total,
     get_item_total,
-    setRedirect
+    setRedirect,
+    isAuthenticated,
+    setLoginRedirect,
+    add_wishlist_item,
+    get_wishlist_items,
+    get_wishlist_item_total
  }) => {
 
     const addToCart = async () => {
@@ -17,6 +22,25 @@ const ProductDetailCard = ({
             await get_total();
             await get_item_total();
             setRedirect(true);
+        }
+    };
+
+    const addToWishList = async () => {
+        if (!isAuthenticated) {
+            setLoginRedirect(true)
+        } else if (
+            product &&
+            product !== null &&
+            product !== undefined
+        ) {
+            await add_wishlist_item();
+            await get_wishlist_items();
+            await get_wishlist_item_total();
+            await get_items();
+            await get_total();
+            await get_item_total();
+
+
         }
     };
 
@@ -87,6 +111,13 @@ const ProductDetailCard = ({
                         className='btn btn-warning mb-2'
                     >
                         Add to Cart
+                    </button>
+
+                    <button 
+                        onClick={ addToWishList } 
+                        className='btn btn-outline-primary mb-2'
+                    >
+                        Add to Wishlist
                     </button>
 
                     <p className='card-text text-muted'>

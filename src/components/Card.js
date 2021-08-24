@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import WishListHeart from './WishListHeart';
 
 const Card = ({ 
     product,
@@ -8,23 +9,74 @@ const Card = ({
     get_items,
     get_total,
     get_item_total,
-    setRedirect 
+    wishlist,
+    get_wishlist_items,
+    get_wishlist_item_total,
+    add_wishlist_item,
+    remove_wishlist_item,
+    setRedirect,
+    isAuthenticated,
+    setLoginRedirect, 
 }) => {
 
     const addToCart = async () => {
-        if (product && product !== null && product !== undefined && product.quantity > 0) {
+        if (
+                product && 
+                product !== null && 
+                product !== undefined && 
+                product.quantity > 0
+            ) {
             await add_item(product);
             await get_items();
             await get_total();
             await get_item_total();
+            await get_wishlist_items();
+            await get_wishlist_item_total();
             setRedirect(true);
         }
     };
 
+    const toggleWishlist = async () => {
+        if (isAuthenticated) {
+            let isPresent = false;
+
+            if (
+                wishlist &&
+                wishlist !== null &&
+                wishlist !== undefined &&
+                product &&
+                product !== null &&
+                product !== undefined
+            ) {
+                wishlist.map(item => {
+                    if (item.product.id.toString() === product.id.toString()) {
+                        isPresent = true;
+                    }
+                });
+            }
+
+            if (isPresent) {
+                await remove_wishlist_item(product.id);
+                await get_wishlist_items();
+                await get_wishlist_item_total();
+            } else {
+                await add_wishlist_item(product.id);
+                await get_wishlist_items();
+                await get_wishlist_item_total();
+                await get_items();
+                await get_total();
+                await get_item_total();
+            }
+
+        } else {
+            setLoginRedirect(true);
+        }
+    };
+
     return (
-        <div className='card mb-5'>
+        <div className='card mb-5' style={{ position: 'relative' }}>
             <div className='card-body'>
-                <h3 className='card-title'>{ product.name }</h3>
+                <h3 className='card-title mr-3'>{ product.name }</h3>
                 <div className='mt-3 mb-3' style={{ height: '240px', width: '90%', marginLeft: '5%', overflow: 'hidden' }}>
                     <img className='card-img-top' alt='Product Visual' src={ product.photo} />
                 </div>
@@ -72,6 +124,11 @@ const Card = ({
                     Add to Cart
                 </button>
             </div>
+            <WishListHeart 
+                product={ product }
+                wishlist={ wishlist }
+                toggleWishlist={ toggleWishlist }
+            />
         </div>
     );
 };

@@ -19,6 +19,7 @@ import Search from './containers/Search';
 import Shop from './containers/Shop';
 import Signup from './containers/Signup';
 import ThankYou from './containers/ThankYou';
+import WishList from './containers/WishList';
 import Layout from './hocs/Layout';
 import PrivateRoute from './hocs/PrivateRoute';
 import store from './store';
@@ -34,6 +35,7 @@ const App = () => {
                         <Route exact path='/' component={ Home } />
                         <Route exact path='/shop' component={ Shop } />
                         <Route exact path='/cart' component={ Cart } />
+                        <PrivateRoute exact path='/wishlist' component={ WishList } />
                         <PrivateRoute exact path='/checkout' component={ Checkout } />
                         <Route exact path='/cart-or-continue-shopping' component={ GoToCart } />
                         <Route exact path='/search' component={ Search } />

@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
     get_items, get_item_total, get_total, synch_cart
 } from '../actions/cart';
+import { clear_wishlist, get_wishlist_items, get_wishlist_item_total } from '../actions/wishlist';
 import { setAlert } from './alert';
 import {
     ACTIVATION_FAIL,
@@ -181,6 +182,10 @@ export const login = (email, password) => async dispatch => {
 
             dispatch(synch_cart());
 
+            dispatch(get_wishlist_items());
+
+            dispatch(get_wishlist_item_total());
+
         } else {
 
             dispatch({
@@ -349,12 +354,10 @@ export const logout = () => dispatch => {
     });
 
     dispatch(setAlert('Loggout Out', 'success'));
-
     dispatch(get_items());
-
     dispatch(get_item_total());
-
     dispatch(get_total());
+    dispatch(clear_wishlist());
 };
 
 export const reset_password = (email) => async dispatch => {
@@ -533,6 +536,10 @@ export const google_autenticate = (state, code) => async dispatch => {
 
                 dispatch(synch_cart());
 
+                dispatch(get_wishlist_items());
+
+                dispatch(get_wishlist_item_total());
+
             } else {
 
                 dispatch({
@@ -604,6 +611,10 @@ export const facebook_autenticate = (state, code) => async dispatch => {
                 dispatch(setAlert('Logged in successfully', 'success'));
 
                 dispatch(synch_cart());
+
+                dispatch(get_wishlist_items());
+
+                dispatch(get_wishlist_item_total());
 
             } else {
 

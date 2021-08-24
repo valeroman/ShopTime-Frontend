@@ -9,6 +9,13 @@ const LandingPage = ({
     get_items,
     get_total,
     get_item_total,
+    wishlist,
+    add_wishlist_item,
+    get_wishlist_item_total,
+    get_wishlist_items,
+    remove_wishlist_item,
+    isAuthenticated,
+    setLoginRedirect,
     setRedirect
 }) => {
     return (
@@ -36,6 +43,13 @@ const LandingPage = ({
                                     get_items={ get_items }
                                     get_total={ get_total }
                                     get_item_total={ get_item_total }
+                                    wishlist={ wishlist }
+                                    add_wishlist_item={ add_wishlist_item }
+                                    get_wishlist_item_total={ get_wishlist_item_total }
+                                    get_wishlist_items={ get_wishlist_items }
+                                    remove_wishlist_item={ remove_wishlist_item }
+                                    isAuthenticated={ isAuthenticated }
+                                    setLoginRedirect={ setLoginRedirect }
                                     setRedirect={ setRedirect }
                                 />
                             </div>
@@ -59,6 +73,13 @@ const LandingPage = ({
                                     get_items={ get_items }
                                     get_total={ get_total }
                                     get_item_total={ get_item_total }
+                                    wishlist={ wishlist }
+                                    add_wishlist_item={ add_wishlist_item }
+                                    get_wishlist_item_total={ get_wishlist_item_total }
+                                    get_wishlist_items={ get_wishlist_items }
+                                    remove_wishlist_item={ remove_wishlist_item }
+                                    isAuthenticated={ isAuthenticated }
+                                    setLoginRedirect={ setLoginRedirect }
                                     setRedirect={ setRedirect }
                                 />
                             </div>

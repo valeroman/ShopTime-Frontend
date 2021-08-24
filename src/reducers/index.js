@@ -9,6 +9,7 @@ import payment from './payment';
 import products from './products';
 import profile from './profile';
 import shipping from './shipping';
+import wishlist from './wishlist';
 
 export default combineReducers({
     auth,
@@ -20,5 +21,6 @@ export default combineReducers({
     payment,
     orders,
     coupons,
-    profile
+    profile,
+    wishlist
 });
