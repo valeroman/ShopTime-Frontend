@@ -8,6 +8,7 @@ import orders from './orders';
 import payment from './payment';
 import products from './products';
 import profile from './profile';
+import reviews from './reviews';
 import shipping from './shipping';
 import wishlist from './wishlist';
 
@@ -22,5 +23,6 @@ export default combineReducers({
     orders,
     coupons,
     profile,
-    wishlist
+    wishlist,
+    reviews
 });
