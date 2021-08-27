@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -22,6 +23,12 @@ const Activate = ({ match, loading, activate}) => {
 
     return (
         <div className='container'>
+            <Helmet>
+                <meta charSet='utf-8' />
+                <meta name="description" content="Helmet application" />
+                <title>Shop Time | Activate</title>
+                {/* <link rel='canonical' href='http://shoptime.com/activate' /> */}
+            </Helmet>
             <div 
                 className='d-flex justify-content-center align-items-center flex-column'
                 style={{ marginTop: '200px' }}

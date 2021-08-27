@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
@@ -147,7 +148,6 @@ const ProductDetail = ({
         const fetchData = async () => {
             await delete_review(productId);
             await get_review(productId);
-            setRating(5.0);
             setFormData({
                 comment: ''
             });
@@ -257,6 +257,20 @@ const ProductDetail = ({
 
     return (
         <div className='container mt-5'>
+            <Helmet>
+                <meta charSet='utf-8' />
+                <meta name="description" content="Helmet application" />
+                <title>Shop Time | Product Detail -{`${ 
+                        product &&
+                        product !== null &&
+                        product !== undefined &&
+                        product.name &&
+                        product.name !== null &&
+                        product.name !== undefined ? product.name : ''
+                    }`}
+                </title>
+                {/* <link rel='canonical' href='http://shoptime.com/activate' /> */}
+            </Helmet>
             <ProductDetailCard 
                 product={ product }
                 add_item={ add_item }

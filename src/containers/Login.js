@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -56,6 +57,12 @@ const Login = ({ login, isAuthenticated, loading}) => {
 
     return (
         <div className='container mt-5'>
+            <Helmet>
+                <meta charSet='utf-8' />
+                <meta name="description" content="Helmet application" />
+                <title>Shop Time | Login</title>
+                {/* <link rel='canonical' href='http://shoptime.com/activate' /> */}
+            </Helmet>
             <h1>Sign In</h1>
             <p>Sign into your Account</p>
             <form onSubmit={ e => onSubmit(e)} >

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { get_order_detail } from '../actions/orders';
@@ -34,6 +35,12 @@ const OrderItemDetail = ({
 
     return (
         <div className='container mt-3'>
+            <Helmet>
+                <meta charSet='utf-8' />
+                <meta name="description" content="Helmet application" />
+                <title>Shop Time | Orden Item Detail</title>
+                {/* <link rel='canonical' href='http://shoptime.com/activate' /> */}
+            </Helmet>
             <h1 className='mb-5'>
                 Order Details
             </h1>

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
@@ -53,7 +54,13 @@ const Home = ({
     }
 
     return (
-        <div>
+        <Fragment>
+            <Helmet>
+                <meta charSet='utf-8' />
+                <meta name="description" content="Helmet application" />
+                <title>Shop Time | Home</title>
+                {/* <link rel='canonical' href='http://shoptime.com/activate' /> */}
+            </Helmet>
             <LandingPage 
                 products_arrival={ products_arrival}
                 products_sold={ products_sold }
@@ -70,7 +77,7 @@ const Home = ({
                 setLoginRedirect={ setLoginRedirect }
                 setRedirect={ setRedirect }
             />
-        </div>
+        </Fragment>
     )
 };
 

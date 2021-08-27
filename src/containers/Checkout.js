@@ -1,5 +1,6 @@
 import DropIn from 'braintree-web-drop-in-react';
 import React, { Fragment, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -387,6 +388,12 @@ const Checkout = ({
 
     return (
         <div className='container mt-5 mb-5'>
+            <Helmet>
+                <meta charSet='utf-8' />
+                <meta name="description" content="Helmet application" />
+                <title>Shop Time | Checkout</title>
+                {/* <link rel='canonical' href='http://shoptime.com/activate' /> */}
+            </Helmet>
             <div className='row'>
                 <div className='col-7'>
                     { showItems() }

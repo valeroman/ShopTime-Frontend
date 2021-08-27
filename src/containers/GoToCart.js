@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 const GoToCart = () => {
@@ -6,6 +7,12 @@ const GoToCart = () => {
         <div
             className='container mt-5 d-flex flex-column justify-content-center align-items-center'
         >
+            <Helmet>
+                <meta charSet='utf-8' />
+                <meta name="description" content="Helmet application" />
+                <title>Shop Time | Go to Cart or Continue Shopping</title>
+                {/* <link rel='canonical' href='http://shoptime.com/activate' /> */}
+            </Helmet>
             <h2  className='text-muted mb-5'>
                 Would you like to go to your cart or continue to checkout?
             </h2>
@@ -24,4 +31,4 @@ const GoToCart = () => {
     )
 }
 
-export default GoToCart
+export default GoToCart;
