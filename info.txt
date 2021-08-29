@@ -1,0 +1,15 @@
+Deployment
+
+    Front-end
+        - react-helmet
+            => npm install --save react-helmet
+
+        - colocar a cada una de las paginas o containers
+            import { Helmet } from 'react-helmet';
+
+            <Helmet>
+                <meta charSet='utf-8' />
+                <meta name="description" content="Helmet application" />
+                <title>Shop Time | Dashboard</title>
+                {/* <link rel='canonical' href='http://shoptime.com/activate' /> */}
+            </Helmet>

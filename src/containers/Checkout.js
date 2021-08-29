@@ -1,3 +1,5 @@
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import DropIn from 'braintree-web-drop-in-react';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
@@ -6,11 +8,15 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { refresh } from '../actions/auth';
 import { check_coupon } from '../actions/coupons';
-import { get_client_token, get_payment_total, process_payment } from '../actions/payment';
+import { create_order } from '../actions/orders';
+import { create_stripe_payment_intent, get_client_token, get_payment_total, process_payment } from '../actions/payment';
 import { get_shipping_options } from '../actions/shipping';
 import CardItem from '../components/CardItem';
+import CheckoutForm from '../components/CheckoutForm';
 import ShippingForm from '../components/ShippingForm';
 import { countries } from '../helpers/fixedCountries';
+
+const promise = loadStripe('pk_test_51HROZ3CxIJjWTJaz3UEcYQ90nw6ONejWWCJbEAVSbKRDtLyYlnzvOoiLN8GBifAHioKxrgQvAzHYb9qv6gfLXUD300a4gz4RBa');
 
 const Checkout = ({
     items,
@@ -34,7 +40,11 @@ const Checkout = ({
     shipping_cost,
     check_coupon,
     coupon,
-    total_after_coupon
+    total_after_coupon,
+    create_stripe_payment_intent,
+    create_order,
+    clientSecret,
+    create_order_loading
 }) => {
 
     const [formData, setFormData] = useState({
@@ -151,8 +161,10 @@ const Checkout = ({
         
         if (coupon && coupon !== null && coupon !== undefined) {
             get_payment_total(shipping_id, coupon.name);
+            create_stripe_payment_intent(shipping_id, coupon.name);
         } else {
             get_payment_total(shipping_id, '');
+            create_stripe_payment_intent(shipping_id, '');
         }
     },[shipping_id, coupon]);
 
@@ -382,6 +394,55 @@ const Checkout = ({
         }
     };
 
+    const renderBraintreePaymentForm = () => {
+        return (
+            <ShippingForm 
+                buy={ buy }
+                renderShipping={ renderShipping } 
+                full_name={ full_name }
+                address_line_1={ address_line_1 }
+                address_line_2={ address_line_2 }
+                city={ city }
+                state_province_region={ state_province_region }
+                postal_zip_code={ postal_zip_code }
+                telephone_number={ telephone_number }
+                onChange={ onChange }
+                renderPaymentInfo={ renderPaymentInfo }
+                countries={ countries }
+                user={ user }
+                profile={ profile }
+            />
+        );
+    };
+
+    const renderStripePaymentForm = () => {
+        return (
+            
+            <Elements stripe={promise}>
+                <CheckoutForm 
+                    shipping_id={ shipping_id }
+                    renderShipping={ renderShipping } 
+                    full_name={ full_name }
+                    address_line_1={ address_line_1 }
+                    address_line_2={ address_line_2 }
+                    city={ city }
+                    state_province_region={ state_province_region }
+                    postal_zip_code={ postal_zip_code }
+                    country_region={ country_region }
+                    telephone_number={ telephone_number }
+                    onChange={ onChange }
+                    countries={ countries }
+                    user={ user }
+                    profile={ profile }
+                    create_order={ create_order }
+                    clientSecret={ clientSecret }
+                    loading={ create_order_loading }
+                />
+            </Elements>
+            
+        );
+    }
+
     if (made_payment) {
         return <Redirect to='/thankyou' />;
     }
@@ -440,22 +501,8 @@ const Checkout = ({
                     <div style={{ fontSize: '18px'}}>
                         { displayTotal() }
                     </div>
-                    <ShippingForm 
-                        buy={ buy }
-                        renderShipping={ renderShipping } 
-                        full_name={ full_name }
-                        address_line_1={ address_line_1 }
-                        address_line_2={ address_line_2 }
-                        city={ city }
-                        state_province_region={ state_province_region }
-                        postal_zip_code={ postal_zip_code }
-                        telephone_number={ telephone_number }
-                        onChange={ onChange }
-                        renderPaymentInfo={ renderPaymentInfo }
-                        countries={ countries }
-                        user={ user }
-                        profile={ profile }
-                    />
+                    { renderBraintreePaymentForm() }
+                    {/* { renderStripePaymentForm() } */}
                 </div>
             </div>
         </div>
@@ -478,7 +525,9 @@ const mapStateToProps = state => ({
     total_compare_amount: state.payment.total_compare_amount,
     estimated_tax: state.payment.estimated_tax,
     shipping_cost: state.payment.shipping_cost,
-    total_after_coupon: state.payment.total_after_coupon
+    total_after_coupon: state.payment.total_after_coupon,
+    clientSecret: state.payment.clientSecret,
+    create_order_loading: state.orders.loading
 });
 
 export default connect(mapStateToProps, {
@@ -487,5 +536,7 @@ export default connect(mapStateToProps, {
     get_shipping_options,
     get_payment_total,
     get_client_token,
-    process_payment
+    process_payment,
+    create_order,
+    create_stripe_payment_intent
 })(Checkout);
